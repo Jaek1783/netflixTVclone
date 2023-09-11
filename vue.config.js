@@ -1,4 +1,4 @@
 module.exports = {
-    publicPath: "/netflixTVclone/",
+    publicPath: "/netflixTVclone",
     outputDir: "docs",
   };
