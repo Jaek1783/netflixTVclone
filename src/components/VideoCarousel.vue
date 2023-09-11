@@ -68,7 +68,6 @@ import { storeToRefs } from 'pinia';
 
     const fullScreenVideo = (index)=>{
         currentSlide.value = index
-        console.log(currentSlide.value, index, showFullVideo)
         setTimeout(()=>showFullVideo.value = true ,500)
     }
 </script>
