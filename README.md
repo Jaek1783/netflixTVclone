@@ -1,30 +1,16 @@
-# netflixtv
+# NetflixTVclone
 
-This template should help get you started developing with Vue 3 in Vite.
+## 제작기간
+2023.09.10 ~ 2023.09.11
 
-## Recommended IDE Setup
+### 주소
+https://jaek1783.github.io/netflixTVclone/
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### 소개
+- youtube vue Netflix TVversion clone
+- vue를 이용한 기본적인 컴포넌트 활용, props, json데이터를 학습
+- 기능 없음
+- Slide 라이브러리와 Vue Icon 라이브러리를 이용한 기초학습
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-# netflixTVclone
+### 디자인
+![image](https://github.com/Jaek1783/netflixTVclone/assets/73649967/846249eb-bce6-4c3c-91fb-9d7d82970de9)
