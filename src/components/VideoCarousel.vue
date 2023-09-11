@@ -14,7 +14,7 @@
             :items-to-scroll="1"
             :wrap-around="true"
             :transition="500"
-            :snapAlign='start'
+            snapAlign="start"
             class="bg-transparent"
         >
             <Slide
@@ -22,26 +22,24 @@
                 :key="slide"
                 class="flex items-center object-cover text-white bg-transparent"
             >
-            <div
-  @click="$event => fullScreenVideo(index)"
-  class="object-cover h-[100%] hover:brightness-125 cursor-pointer"
-  :class="{
-    'border-4 border-white': currentSlide === index || currentSlideObject(slide, index),
-    'border-4 border-transparent': currentSlide !== index && !currentSlideObject(slide, index)
-  }"
->
-
-                <img
-                    style="user-select: none;"
-                    class="pointer-events-none h-[100%] z-[-1]"
-                    :src="'/images/'+slide.name+'.png'" 
-                    alt=""
+                <div
+                    @click="$event=>fullScreenVideo(index)"
+                    class="object-cover h-[100%] hover-brightness-125 cursor-pointer"
+                    :class="
+                        currentSlide !== index ? 'border-4 border-transparent' : 'border-4 border-white',
+                        currentSlideObject(slide, index) 
+                    "
                 >
-                </div>
+                <img
+                    style="user-select: none"
+                    class="pointer-events-none h-[100%] z-[-1]"
+                    :src="'/images/'+slide.name+'.png'"
+                />
+            </div>
             </Slide>
             <template #addons>
                 <Navigation/>
-            </template>
+            </template >
         </Carousel>
     </div>
 </template>
@@ -54,7 +52,7 @@ import { Carousel,Slide,Navigation } from 'vue3-carousel';
 import { useMovieStore } from '../stores/movie';
 import { storeToRefs } from 'pinia';
     const useMovie = useMovieStore();
-    const {movie, showFullMovie} = storeToRefs(useMovie);
+    const {movie, showFullVideo} = storeToRefs(useMovie);
 
     let currentSlide = ref(0);
 
@@ -64,20 +62,22 @@ import { storeToRefs } from 'pinia';
     const currentSlideObject = (slide, index) =>{
         if(index === currentSlide.value){
             movie.value = slide
+            // console.log(movie)
         }
     }
 
     const fullScreenVideo = (index)=>{
-        currentSlide.value = index;
-        setTimeout(()=>showFullMovie.value = true ,500)
+        currentSlide.value = index
+        console.log(currentSlide.value, index, showFullVideo)
+        setTimeout(()=>showFullVideo.value = true ,500)
     }
 </script>
 
 <style>
-    .carousel_prev,
-    .carousel_next,
-    .carousel_prev:hover,
-    .carousel_next:hover{
+    .carousel__prev,
+    .carousel__next,
+    .carousel__prev:hover,
+    .carousel__next:hover{
         color:white
     }
 </style>
