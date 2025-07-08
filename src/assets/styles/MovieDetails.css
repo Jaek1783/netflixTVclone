@@ -1,0 +1,39 @@
+.movie-container {
+    z-index: 40;
+    color: white;
+    width: 53%;
+    padding-top: 5rem;
+}
+
+.movie-title {
+    font-size: 55px;
+    font-weight: 600;
+    font-family: serif;
+}
+
+.movie-info {
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    padding-top: 1rem;
+}
+
+.genre-separator {
+    position: relative;
+}
+
+.genre-dot {
+    position: absolute;
+    left: 2px;
+    top: -12px;
+    font-size: 40px;
+}
+
+.genre-text {
+    padding-left: 1rem;
+}
+
+.movie-description {
+    font-size: 1.5rem;
+    padding-top: 1.5rem;
+} 

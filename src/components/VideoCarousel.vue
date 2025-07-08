@@ -1,10 +1,8 @@
 <template>
-    <div class="min-w-[1200px] relative">
-        <div class="flex justify-between mr-6">
-            <div class="
-                flex items-center font-semibold text-white text-2xl cursor-pointer
-            ">
-            {{ category }}
+    <div class="carousel-wrapper">
+        <div class="category-header">
+            <div class="category-title">
+                {{ category }}
             </div>
         </div>
         <Carousel
@@ -15,31 +13,32 @@
             :wrap-around="true"
             :transition="500"
             snapAlign="start"
-            class="bg-transparent"
+            class="carousel"
         >
             <Slide
                 v-for="slide, index in movies"
                 :key="slide"
-                class="flex items-center object-cover text-white bg-transparent"
+                class="slide-item"
             >
                 <div
                     @click="$event=>fullScreenVideo(index)"
-                    class="object-cover h-[100%] hover-brightness-125 cursor-pointer"
-                    :class="
-                        currentSlide !== index ? 'border-4 border-transparent' : 'border-4 border-white',
-                        currentSlideObject(slide, index) 
-                    "
+                    @mouseenter="updatePreview(slide)"
+                    @mouseleave="resetPreview"
+                    class="slide-content"
+                    :class="{
+                        'selected': currentSlide === index,
+                        'not-selected': currentSlide !== index
+                    }"
                 >
-                <img
-                    style="user-select: none"
-                    class="pointer-events-none h-[100%] z-[-1]"
-                    :src="'/images/'+slide.name+'.png'"
-                />
-            </div>
+                    <img
+                        class="slide-image"
+                        :src="'/images/'+slide.name+'.png'"
+                    />
+                </div>
             </Slide>
             <template #addons>
                 <Navigation/>
-            </template >
+            </template>
         </Carousel>
     </div>
 </template>
@@ -47,28 +46,39 @@
 <script setup>
 import {ref, toRefs} from 'vue';
 import 'vue3-carousel/dist/carousel.css';
-import { Carousel,Slide,Navigation } from 'vue3-carousel';
+import '../assets/styles/VideoCarousel.css';
+import { Carousel, Slide, Navigation } from 'vue3-carousel';
 
-import { useMovieStore } from '../stores/movie';
+import { useMovieStore } from '@/stores/movie';
 import { storeToRefs } from 'pinia';
     const useMovie = useMovieStore();
     const {movie, showFullVideo} = storeToRefs(useMovie);
 
     let currentSlide = ref(0);
+    let originalMovie = ref(null);
 
     const props = defineProps({category : String , movies : Array})
     const {movies, category } = toRefs(props);
 
-    const currentSlideObject = (slide, index) =>{
-        if(index === currentSlide.value){
-            movie.value = slide
-            // console.log(movie)
+    const updatePreview = (slide) => {
+        if (!originalMovie.value) {
+            originalMovie.value = movie.value;
+        }
+        movie.value = slide;
+    }
+
+    const resetPreview = () => {
+        if (originalMovie.value) {
+            movie.value = originalMovie.value;
+            originalMovie.value = null;
         }
     }
 
-    const fullScreenVideo = (index)=>{
-        currentSlide.value = index
-        setTimeout(()=>showFullVideo.value = true ,500)
+    const fullScreenVideo = (index) => {
+        currentSlide.value = index;
+        originalMovie.value = movies.value[index];
+        movie.value = movies.value[index];
+        setTimeout(() => showFullVideo.value = true, 500);
     }
 </script>
 

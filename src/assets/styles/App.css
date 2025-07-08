@@ -1,0 +1,115 @@
+.app-container {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+}
+
+.side-nav {
+    display: flex;
+    z-index: 40;
+    align-items: center;
+    width: 120px;
+    height: 100vh;
+    background-color: black;
+    position: relative;
+}
+
+.netflix-logo {
+    position: absolute;
+    top: 10px;
+    width: 35px;
+    margin-top: 2.5rem;
+    margin-left: 2.5rem;
+}
+
+.nav-item {
+    padding: 0.5rem;
+    margin: 2.5rem;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+}
+
+.nav-item.active {
+    border-bottom: 4px solid #ef4444;
+}
+
+.main-video-container {
+    position: fixed;
+    display: flex;
+    z-index: 20;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 50%;
+    background-color: black;
+    padding-left: 120px;
+    background-clip: border-box;
+}
+
+.gradient-overlay {
+    position: absolute;
+    z-index: 30;
+    height: 600px;
+    left: 200px;
+    width: 77%;
+    right: 0;
+    top: 0;
+}
+
+.video-preview {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    top: 0;
+}
+
+.carousel-container {
+    position: fixed;
+    z-index: 30;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 55%;
+    padding-left: 120px;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.carousel-section {
+    padding-bottom: 3.5rem;
+    padding-top: 3.5rem;
+}
+
+.carousel-section.last {
+    padding-bottom: 8rem;
+}
+
+.bottom-gradient {
+    position: absolute;
+    z-index: 20;
+    height: 70%;
+    left: 120px;
+    width: 100%;
+    right: 0;
+    bottom: 0;
+}
+
+.back-button {
+    position: absolute;
+    z-index: 50;
+    padding: 0.5rem;
+    margin: 1rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 9999px;
+    cursor: pointer;
+}
+
+.fullscreen-video {
+    position: absolute;
+    z-index: 0;
+    width: 100vw;
+    height: 100%;
+    object-fit: contain;
+} 
