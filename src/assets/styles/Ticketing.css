@@ -1,0 +1,499 @@
+.ticketing-container {
+  padding: 120px 2rem 2rem;
+  color: white;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+}
+
+.ticketing-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.ticketing-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.ticketing-header p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.ticketing-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+}
+
+.subscription-card,
+.payment-methods,
+.billing-history,
+.plan-options {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.subscription-card h2,
+.payment-methods h2,
+.billing-history h2,
+.plan-options h2 {
+  margin-bottom: 1.5rem;
+  color: #e50914;
+}
+
+.subscription-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.plan-price {
+  font-size: 1.5rem;
+  color: #e50914;
+  font-weight: bold;
+}
+
+.plan-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.plan-features li {
+  padding: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.payment-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.payment-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-payment-btn {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-payment-btn:hover {
+  background: #f40612;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.status.success {
+  color: #4caf50;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.plan-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.plan-card.current {
+  border: 2px solid #e50914;
+}
+
+.plan-card h3 {
+  margin-bottom: 1rem;
+}
+
+.plan-card .price {
+  font-size: 1.5rem;
+  color: #e50914;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.plan-card li {
+  padding: 0.5rem 0;
+}
+
+.plan-btn {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.plan-btn:hover {
+  background: #f40612;
+}
+
+.plan-btn.current {
+  background: rgba(255, 255, 255, 0.2);
+  cursor: default;
+}
+
+.plan-btn.current:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 결제 상태 메시지 스타일 */
+.payment-status {
+  position: relative;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.payment-status.success {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.payment-status.warning {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.payment-status.error {
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.payment-status h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.payment-status p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.close-btn:hover {
+  opacity: 1;
+}
+
+/* 결제 로딩 스타일 */
+.payment-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #e50914;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 결제 수단 모달 스타일 */
+.payment-method-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #e50914;
+}
+
+.payment-method-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.payment-method-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.payment-method-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.payment-method-item.selected {
+  border-color: #e50914;
+  background: rgba(229, 9, 20, 0.1);
+}
+
+.method-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.method-name {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.method-desc {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.cancel-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.confirm-btn {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-btn:hover {
+  background: #f40612;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .subscription-info {
+    grid-template-columns: 1fr;
+  }
+  
+  .plans-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .payment-method-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-content {
+    margin: 1rem;
+    width: auto;
+  }
+}
+
+/* 개발자 테스트 섹션 스타일 */
+.dev-test-section {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+}
+
+.dev-test-section h2 {
+  margin-bottom: 1rem;
+  color: #e50914;
+}
+
+.dev-test-section p {
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.test-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.test-btn {
+  background: linear-gradient(135deg, #e50914 0%, #f40612 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+}
+
+.test-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
+}
+
+.test-btn:active {
+  transform: translateY(0);
+}
+
+.test-info {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #e50914;
+}
+
+.test-info p {
+  margin: 0 0 1rem 0;
+  font-weight: bold;
+  color: #e50914;
+}
+
+.test-info ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.test-info li {
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.warning-notice {
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  color: #ffc107;
+}
+
+.warning-notice strong {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.info-box {
+  background: rgba(33, 150, 243, 0.1);
+  border: 1px solid rgba(33, 150, 243, 0.3);
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+  color: #2196f3;
+}
+
+.info-box p {
+  margin: 0.5rem 0;
+}
+
+.info-box strong {
+  color: #1976d2;
+}
+
+@media (max-width: 768px) {
+  .test-buttons {
+    flex-direction: column;
+  }
+  
+  .test-btn {
+    width: 100%;
+  }
+} 
