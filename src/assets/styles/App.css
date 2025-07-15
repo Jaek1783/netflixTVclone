@@ -7,31 +7,29 @@
 
 .side-nav {
     display: flex;
+    flex-direction: row;
     z-index: 40;
+    min-width: 120px;
+    height: 100vh;
+    background-color: black;
+    position: relative;
+    transition: width 0.3s ease;
+}
+
+.nav-main {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     width: 120px;
     height: 100vh;
     background-color: black;
+    padding-top: 2.5rem;
     position: relative;
+    z-index: 41;
 }
 
 .netflix-logo {
-    position: absolute;
-    top: 10px;
     width: 35px;
-    margin-top: 2.5rem;
-    margin-left: 2.5rem;
-}
-
-.nav-item {
-    padding: 0.5rem;
-    margin: 2.5rem;
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
-}
-
-.nav-item.active {
-    border-bottom: 4px solid #ef4444;
 }
 
 .main-video-container {
@@ -43,7 +41,6 @@
     width: 100%;
     height: 50%;
     background-color: black;
-    padding-left: 120px;
     background-clip: border-box;
 }
 
@@ -71,7 +68,6 @@
     right: 0;
     width: 100%;
     height: 55%;
-    padding-left: 120px;
     overflow-y: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -112,4 +108,144 @@
     width: 100vw;
     height: 100%;
     object-fit: contain;
-} 
+}
+
+/* 추가된 스타일들 (App.vue에서 이동) */
+.main-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 20;
+    overflow-y: auto;
+    transition: padding-left 0.3s ease;
+}
+
+.search-panel {
+    position: absolute;
+    top: 0;
+    left: 120px;
+    width: 280px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2rem 1rem;
+    overflow-y: auto;
+    border-right: 1px solid #333;
+    z-index: 40;
+}
+
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.search-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-input-container {
+    margin-bottom: 1.5rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.search-input:focus {
+    border-color: #e50914;
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.3);
+}
+
+.search-results-header {
+    color: white;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #333;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.movie-thumbnail {
+    width: 60px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 1rem;
+}
+
+.movie-info {
+    flex: 1;
+}
+
+.movie-info h4 {
+    color: white;
+    margin: 0 0 0.25rem 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.movie-year {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 0.25rem 0;
+    font-size: 0.8rem;
+}
+
+.movie-genre {
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+.no-results {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 2rem 1rem;
+}
+
+.no-results p {
+    margin: 0;
+}

@@ -81,12 +81,3 @@ import { storeToRefs } from 'pinia';
         setTimeout(() => showFullVideo.value = true, 500);
     }
 </script>
-
-<style>
-    .carousel__prev,
-    .carousel__next,
-    .carousel__prev:hover,
-    .carousel__next:hover{
-        color:white
-    }
-</style>
