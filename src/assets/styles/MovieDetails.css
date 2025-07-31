@@ -24,17 +24,12 @@
 }
 
 .genre-dot {
-    position: absolute;
-    left: 2px;
-    top: -12px;
-    font-size: 40px;
-}
-
-.genre-text {
-    padding-left: 1rem;
+    padding:0 10px;
+    font-size: 20px;
 }
 
 .movie-description {
     font-size: 1.5rem;
-    padding-top: 1.5rem;
+    padding-top: 1rem;
+    color:#fff;
 } 

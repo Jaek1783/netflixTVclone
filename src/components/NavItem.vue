@@ -17,7 +17,7 @@ defineProps({
   <div class="nav-item" :class="{ active: isActive }">
     <component 
       :is="icon" 
-      fillColor="#fff" 
+      :fillColor="isActive ? '#ef4444' : '#fff'" 
       :size="40" 
       class="cursor-pointer"
     />

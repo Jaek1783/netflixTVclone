@@ -11,8 +11,10 @@ import MovieOutline from 'vue-material-design-icons/MovieOutline.vue'
 import Plus from 'vue-material-design-icons/Plus.vue'
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
 import TicketOutline from 'vue-material-design-icons/TicketOutline.vue'
+import CreditCard from 'vue-material-design-icons/CreditCard.vue'
 import Account from 'vue-material-design-icons/Account.vue'
 import Close from 'vue-material-design-icons/Close.vue'
+import CogOutline from 'vue-material-design-icons/CogOutline.vue'
 
 import NavItem from '@/components/NavItem.vue'
 
@@ -33,6 +35,14 @@ const searchResults = ref([])
 
 // 현재 라우트에 따라 활성 상태 결정
 const isActive = (routeName) => {
+  // 검색이 열려있을 때는 다른 모든 페이지의 active 상태를 제거
+  if (isSearchOpen.value) {
+    return false
+  }
+  // 관리자 페이지들의 경우 admin으로 시작하는 모든 라우트에서 활성화
+  if (routeName === 'admin') {
+    return route.name === 'admin' || route.name?.startsWith('admin-')
+  }
   return route.name === routeName
 }
 
@@ -74,6 +84,15 @@ const searchMovies = () => {
 // 검색어 변경 감지
 watch(searchQuery, () => {
   searchMovies()
+})
+
+// 라우트 변경 감지하여 검색 닫기
+watch(route, () => {
+  if (isSearchOpen.value) {
+    isSearchOpen.value = false
+    searchQuery.value = ''
+    searchResults.value = []
+  }
 })
 
 // 네비게이션 바 너비 계산
@@ -133,9 +152,19 @@ const selectMovie = (movie) => {
             @click="navigateTo('ticketing')" 
           />
           <NavItem 
+            :icon="CreditCard" 
+            :is-active="isActive('payment')" 
+            @click="navigateTo('payment')" 
+          />
+          <NavItem 
             :icon="Account" 
             :is-active="isActive('login')" 
             @click="navigateTo('login')" 
+          />
+          <NavItem 
+            :icon="CogOutline" 
+            :is-active="isActive('admin')" 
+            @click="navigateTo('admin')" 
           />
         </div>
       </div>
