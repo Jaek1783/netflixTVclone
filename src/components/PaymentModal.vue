@@ -164,6 +164,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import '@/assets/styles/PaymentModal.css'
+import KCPPaymentService from '@/services/kcpPaymentService'
 
 const props = defineProps({
   isVisible: {
@@ -256,60 +257,62 @@ const processPayment = async () => {
   try {
     // 결제 데이터 준비
     const paymentRequestData = {
-      ...props.paymentData,
-      paymentMethod: selectedMethod.value,
-      cardInfo: selectedMethod.value === 'card' ? cardInfo.value : null,
-      bankInfo: selectedMethod.value === 'bank' ? bankInfo.value : null
+      orderId: props.paymentData.orderId,
+      orderName: props.paymentData.orderName,
+      amount: props.paymentData.amount,
+      customerName: props.paymentData.customerName || '사용자',
+      customerEmail: props.paymentData.customerEmail || 'user@example.com'
     }
 
-    console.log('💳 결제창에서 결제 요청:', paymentRequestData)
+    console.log('💳 NHN KCP 결제 시작:', paymentRequestData)
 
-    // 모의 결제 처리
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    // NHN KCP 결제 서비스 인스턴스 생성
+    const kcpService = new KCPPaymentService()
     
-    const success = Math.random() > 0.3 // 70% 성공률
+    // KCP 팝업 결제창 호출
+    const result = await kcpService.openPaymentPopup(paymentRequestData)
     
-    if (success) {
-      const result = {
-        success: true,
-        paymentId: 'modal_payment_' + Date.now(),
-        amount: props.paymentData.amount,
-        orderId: props.paymentData.orderId,
-        status: 'COMPLETED',
-        paidAt: new Date().toISOString(),
-        method: selectedMethod.value,
-        message: '결제가 성공적으로 완료되었습니다!'
-      }
-      
-      paymentResult.value = result
-      console.log('✅ 결제 성공:', result)
-      
-      // 3초 후 자동으로 결제 완료 이벤트 발생
-      setTimeout(() => {
-        emit('payment-complete', result)
-        closeModal()
-      }, 3000)
-    } else {
-      const errorTypes = ['CARD_DECLINED', 'INSUFFICIENT_FUNDS', 'NETWORK_ERROR']
-      const randomError = errorTypes[Math.floor(Math.random() * errorTypes.length)]
-      
-      paymentResult.value = {
-        success: false,
-        error: randomError,
-        message: `결제 실패: ${randomError}`,
-        orderId: props.paymentData.orderId
-      }
-      
-      console.log('❌ 결제 실패:', paymentResult.value)
+    // 결제 성공 시
+    const paymentCompleteResult = {
+      success: true,
+      paymentId: result.paymentId || 'kcp_' + Date.now(),
+      amount: result.amount || props.paymentData.amount,
+      orderId: result.orderId || props.paymentData.orderId,
+      status: 'COMPLETED',
+      paidAt: new Date().toISOString(),
+      method: 'card',
+      message: 'NHN KCP 결제가 성공적으로 완료되었습니다!'
     }
+    
+    paymentResult.value = paymentCompleteResult
+    console.log('✅ KCP 결제 성공:', paymentCompleteResult)
+    
+    // 3초 후 자동으로 결제 완료 이벤트 발생
+    setTimeout(() => {
+      emit('payment-complete', paymentCompleteResult)
+      closeModal()
+    }, 3000)
+    
   } catch (error) {
-    console.error('결제 처리 중 오류:', error)
+    console.error('KCP 결제 처리 중 오류:', error)
+    
+    // 에러 타입에 따른 처리
+    let errorMessage = 'KCP 결제 중 오류가 발생했습니다.'
+    
+    if (error.message.includes('취소')) {
+      errorMessage = '결제가 취소되었습니다.'
+    } else if (error.message.includes('팝업')) {
+      errorMessage = '팝업 차단으로 인해 결제가 실패했습니다. 팝업 차단을 해제해주세요.'
+    }
+    
     paymentResult.value = {
       success: false,
-      error: 'UNKNOWN_ERROR',
-      message: '결제 처리 중 오류가 발생했습니다.',
+      error: 'KCP_PAYMENT_FAILED',
+      message: errorMessage,
       orderId: props.paymentData.orderId
     }
+    
+    console.log('❌ KCP 결제 실패:', paymentResult.value)
   } finally {
     isProcessing.value = false
   }

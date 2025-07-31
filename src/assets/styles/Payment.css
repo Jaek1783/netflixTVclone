@@ -1,0 +1,575 @@
+/* Payment.css - 넷플릭스 결제 페이지 스타일 */
+
+.payment-container {
+  padding: 120px 2rem 4rem;
+  color: white;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+}
+
+/* 헤더 섹션 */
+.payment-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.payment-header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #e50914 0%, #f40612 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.payment-header p {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* 선택한 플랜 표시 섹션 */
+.selected-plan-display {
+  width: 100%;
+  max-width: 1400px;
+  margin-bottom: 3rem;
+  padding: 0 2rem;
+  margin:0 auto;
+}
+
+.selected-plan-display .selected-plan-info {
+  background: rgba(229, 9, 20, 0.1);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.selected-plan-display h2 {
+  margin-bottom: 1.5rem;
+  color: white;
+  font-size: 1.8rem;
+}
+
+.selected-plan-display .plan-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+.plan-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.selected-plan-display .plan-info {
+  flex: 1;
+}
+
+.selected-plan-display .plan-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+}
+
+.selected-plan-display .plan-total {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.payment-btn-top {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #e50914 0%, #f40612 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+  white-space: nowrap;
+}
+
+.payment-btn-top:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
+}
+
+.selected-plan-display .total-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #e50914;
+}
+
+.no-plan-selected {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.no-plan-selected h2 {
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
+}
+
+.no-plan-selected p {
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+/* 플랜 비교 섹션 */
+.plans-comparison {
+  max-width: 1400px;
+  margin: 4rem auto;
+}
+
+.comparison-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.comparison-header h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.comparison-header p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.plan-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 2rem;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.plan-card.selected {
+  border-color: #e50914;
+  background: rgba(229, 9, 20, 0.1);
+  box-shadow: 0 20px 60px rgba(229, 9, 20, 0.3);
+}
+
+.plan-card.popular::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #e50914 0%, #f40612 100%);
+  border-radius: 15px 15px 0 0;
+}
+
+.popular-badge {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  background: linear-gradient(135deg, #e50914 0%, #f40612 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+}
+
+.plan-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.plan-header h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #e50914;
+}
+
+.period {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.plan-features {
+  margin-bottom: 2rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.feature-icon {
+  font-size: 1.2rem;
+  margin-right: 0.75rem;
+  width: 24px;
+}
+
+.plan-benefits {
+  margin-bottom: 2rem;
+}
+
+.plan-benefits h4 {
+  margin-bottom: 1rem;
+  color: #e50914;
+  font-size: 1.1rem;
+}
+
+.plan-benefits ul {
+  list-style: none;
+  padding: 0;
+}
+
+.plan-benefits li {
+  padding: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.plan-benefits li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.select-plan-btn {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.select-plan-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.select-plan-btn.selected {
+  background: linear-gradient(135deg, #e50914 0%, #f40612 100%);
+  border-color: #e50914;
+  box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+}
+
+/* 추가 혜택 섹션 */
+.additional-benefits {
+  margin-bottom: 4rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.additional-benefits h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+  color: white;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.benefit-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.benefit-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.benefit-card h3 {
+  margin-bottom: 1rem;
+  color: white;
+  font-size: 1.3rem;
+}
+
+.benefit-card p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* 결제 섹션 */
+.payment-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.payment-summary {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2.5rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.payment-summary h2 {
+  margin-bottom: 1.5rem;
+  color: white;
+  font-size: 1.8rem;
+}
+
+
+
+.payment-btn {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  background: linear-gradient(135deg, #e50914 0%, #f40612 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(229, 9, 20, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.payment-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(229, 9, 20, 0.4);
+}
+
+.payment-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.payment-notice {
+  text-align: left;
+}
+
+.payment-notice h3 {
+  margin-bottom: 1rem;
+  color: #e50914;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.payment-notice p {
+  margin: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+  .plans-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .payment-container {
+    padding: 100px 1rem 2rem;
+  }
+  
+  .payment-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .payment-header p {
+    font-size: 1.1rem;
+  }
+  
+  .selected-plan-display {
+    padding: 0 1rem;
+  }
+  
+  .selected-plan-display .selected-plan-info {
+    padding: 1.5rem;
+  }
+  
+  .selected-plan-display .plan-details {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .selected-plan-display .plan-info {
+    text-align: center;
+  }
+  
+  .payment-btn-top {
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  .plans-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0;
+  }
+  
+  .plan-card {
+    padding: 1.5rem;
+  }
+  
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .payment-summary {
+    padding: 2rem 1.5rem;
+  }
+  
+  .comparison-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .additional-benefits h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .price {
+    font-size: 2rem;
+  }
+  
+  .plan-header h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* 다크테마 강화 */
+@media (prefers-color-scheme: dark) {
+  .plan-card {
+    background: rgba(255, 255, 255, 0.03);
+  }
+  
+  .plan-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+  
+  .benefit-card {
+    background: rgba(255, 255, 255, 0.03);
+  }
+  
+  .benefit-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+/* 스크롤 애니메이션 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.plan-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.benefit-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.plan-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.plan-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.benefit-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.benefit-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.benefit-card:nth-child(4) {
+  animation-delay: 0.3s;
+} 

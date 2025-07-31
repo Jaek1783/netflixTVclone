@@ -4,15 +4,15 @@
         <div class="movie-info">
             <div>{{ movie.year }}</div>
             <div class="genre-separator">
-                <span class="genre-dot">.</span>
+                <span class="genre-dot">/</span>
                 <span class="genre-text">{{ movie.genre.one }}</span>
             </div>
             <div class="genre-separator">
-                <span class="genre-dot">.</span>
+                <span class="genre-dot">/</span>
                 <span class="genre-text">{{ movie.genre.two }}</span>
             </div>
             <div class="genre-separator">
-                <span class="genre-dot">.</span>
+                <span class="genre-dot">/</span>
                 <span class="genre-text">{{ movie.genre.three }}</span>
             </div>
         </div>

@@ -95,81 +95,11 @@
         </div>
       </div>
 
-      <div class="plan-options">
-        <h2>플랜 변경</h2>
-        <div class="plans-grid">
-          <div class="plan-card">
-            <h3>베이직</h3>
-            <p class="price">₩9,500/월</p>
-            <ul>
-              <li>1대 기기</li>
-              <li>SD 화질</li>
-            </ul>
-            <button class="plan-btn" @click="changePlan('basic', 9500)">변경</button>
-          </div>
-          <div class="plan-card current">
-            <h3>스탠다드</h3>
-            <p class="price">₩13,500/월</p>
-            <ul>
-              <li>2대 기기</li>
-              <li>HD 화질</li>
-            </ul>
-            <button class="plan-btn current">현재 플랜</button>
-          </div>
-          <div class="plan-card">
-            <h3>프리미엄</h3>
-            <p class="price">₩17,000/월</p>
-            <ul>
-              <li>4대 기기</li>
-              <li>4K 화질</li>
-            </ul>
-            <button class="plan-btn" @click="changePlan('premium', 17000)">변경</button>
-          </div>
-        </div>
-      </div>
 
-      <!-- 개발자 테스트 섹션 -->
-      <div class="dev-test-section">
-        <h2>NHN 결제 테스트</h2>
-        <p>개발 환경에서 NHN 결제서비스를 테스트할 수 있습니다.</p>
-        <div class="test-buttons">
-          <button class="test-btn" @click="openPaymentModal">모달 결제창 (₩1,000)</button>
-          <button class="test-btn" @click="openKCPPopup">KCP 팝업 결제창 (₩1,000)</button>
-          <button class="test-btn" @click="showPaymentMethodSelector = true">결제 수단 테스트</button>
-        </div>
-        <div class="test-info">
-          <p>모의 결제 환경 정보:</p>
-          <ul>
-            <li>🔧 개발 모드: 활성화</li>
-            <li>🏪 KCP 사이트 코드: T0000 (개발 테스트)</li>
-            <li>📊 결제 성공률: 70%</li>
-            <li>⏱️ 처리 시간: 1-2초</li>
-            <li>💳 모달 결제창 + KCP 팝업 결제창</li>
-            <li>🔲 팝업 크기: 500x600</li>
-            <li>✅ 에러 처리 강화 완료</li>
-          </ul>
-          <div class="warning-notice">
-            <strong>⚠️ 주의:</strong> 실제 NHN KCP SDK 연결 없이 모의 결제로 동작합니다.
-            실제 돈이 결제되지 않는 안전한 테스트 환경입니다.
-          </div>
-          <div class="info-box">
-            <p><strong>💡 KCP 결제 방식:</strong></p>
-            <p>• <strong>모달 결제창:</strong> 페이지 내에서 결제 진행</p>
-            <p>• <strong>KCP 팝업:</strong> 별도 팝업 창에서 결제 진행 (실제 KCP 방식 시뮬레이션)</p>
-            <p>• <strong>에러 처리:</strong> SDK 로드 실패 시 자동으로 모의 결제로 전환</p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- 결제 모달 -->
-  <PaymentModal 
-    :isVisible="showPaymentModal" 
-    :paymentData="currentPaymentData"
-    @close="closePaymentModal"
-    @payment-complete="handlePaymentComplete"
-  />
+
 </template>
 
 <script setup>
@@ -177,16 +107,12 @@ import '@/assets/styles/Ticketing.css'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import PaymentService from '@/services/paymentService'
-import KCPPaymentService from '@/services/kcpPaymentService'
-import PaymentModal from '@/components/PaymentModal.vue'
 
 // 반응형 데이터
 const paymentStatus = ref(null)
 const isPaymentLoading = ref(false)
 const showPaymentMethodSelector = ref(false)
 const selectedPaymentMethod = ref('card')
-const showPaymentModal = ref(false)
-const currentPaymentData = ref({})
 
 // 결제 수단 옵션
 const paymentMethods = ref([
@@ -247,20 +173,7 @@ const handlePaymentCallback = (status) => {
   }
 }
 
-// 플랜 변경 결제 처리
-const changePlan = async (planType, amount) => {
-  const paymentData = {
-    amount: amount,
-    orderName: `넷플릭스 ${planType} 플랜`,
-    customerName: '사용자',
-    customerEmail: 'user@example.com',
-    paymentMethod: selectedPaymentMethod.value,
-    orderId: generateOrderId()
-  }
 
-  currentPaymentData.value = paymentData
-  showPaymentModal.value = true
-}
 
 // 결제 수단 추가
 const addPaymentMethod = () => {
@@ -278,89 +191,7 @@ const addPaymentMethod = () => {
   }
 }
 
-// 결제 모달 열기
-const openPaymentModal = () => {
-  const paymentData = {
-    amount: 1000,
-    orderName: '테스트 결제',
-    customerName: '테스트 사용자',
-    customerEmail: 'test@example.com',
-    paymentMethod: 'card',
-    orderId: generateOrderId()
-  }
 
-  currentPaymentData.value = paymentData
-  showPaymentModal.value = true
-}
 
-// 결제 모달 닫기
-const closePaymentModal = () => {
-  showPaymentModal.value = false
-  currentPaymentData.value = {}
-}
 
-// 결제 완료 처리
-const handlePaymentComplete = (result) => {
-  console.log('결제 완료 결과:', result)
-  
-  if (result.success) {
-    paymentStatus.value = {
-      type: 'success',
-      title: '결제 완료',
-      message: `결제가 성공적으로 완료되었습니다. (결제ID: ${result.paymentId})`
-    }
-  } else {
-    paymentStatus.value = {
-      type: 'error',
-      title: '결제 실패',
-      message: result.message || '결제 중 오류가 발생했습니다.'
-    }
-  }
-  
-  showPaymentModal.value = false
-  currentPaymentData.value = {}
-}
-
-// 주문 ID 생성 함수
-const generateOrderId = () => {
-  return 'netflix_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
-}
-
-// KCP 팝업 결제창 열기
-const openKCPPopup = async () => {
-  try {
-    const paymentData = {
-      orderId: generateOrderId(),
-      orderName: 'KCP 팝업 테스트 결제',
-      amount: 1000,
-      customerName: '테스트 사용자',
-      customerEmail: 'test@example.com'
-    }
-
-    console.log('KCP 팝업 결제 시작:', paymentData)
-    
-    const result = await KCPPaymentService.openPaymentPopup(paymentData)
-    
-    if (result.success) {
-      paymentStatus.value = {
-        type: 'success',
-        title: 'KCP 팝업 결제 성공',
-        message: `결제가 완료되었습니다. (결제ID: ${result.paymentId})`
-      }
-    } else {
-      throw new Error(result.message || 'KCP 결제 실패')
-    }
-  } catch (error) {
-    console.error('KCP 팝업 결제 오류:', error)
-    paymentStatus.value = {
-      type: 'error',
-      title: 'KCP 팝업 결제 실패',
-      message: error.message || 'KCP 결제 중 오류가 발생했습니다.'
-    }
-  }
-}
-
-// 전역으로 테스트 함수 노출 (개발용)
-window.openPaymentModal = openPaymentModal
-window.openKCPPopup = openKCPPopup
 </script> 
